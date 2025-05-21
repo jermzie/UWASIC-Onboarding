@@ -28,6 +28,11 @@ module tt_um_jermzie (
   wire [7:0] en_reg_pwm_15_8;
   wire [7:0] pwm_duty_cycle;
 
+  // Initialize SPI module
+  spi_peripheral spi_peripheral_inst (
+
+  );
+
   // Initialize PWM module
   pwm_peripheral pwm_peripheral_inst (
     .clk(clk),
