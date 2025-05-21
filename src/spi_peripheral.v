@@ -4,8 +4,8 @@ module spi_peripheral #(
     parameter SYNC = 2
     )
     (
-    input wire        rst_n,    // reset
     input wire        clk,      // internal sys. clock
+    input wire        rst_n,    // reset
     input wire        nCS,      // chip select
     input wire        COPI,     // input from controller
     input wire        SCLK,     // clock from controller
