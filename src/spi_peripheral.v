@@ -59,9 +59,10 @@ module spi_peripheral #(
             // update transaction data -- only on posedge of SCLK & nCS still low --
             else if(ff_sync_nCS == 2'b00 && ff_sync_SCLK == 2'b01) begin
 
-                transaction[15-clk_edge_counter] <= ff_sync_COPI[SYNC-1]; 
-                clk_edge_counter <=  clk_edge_counter + 1;
-
+                if(clk_edge_counter != 5'b10000) begin
+                    transaction[15-clk_edge_counter] <= ff_sync_COPI[SYNC-1]; 
+                    clk_edge_counter <=  clk_edge_counter + 1;
+                end
             end
 
             
