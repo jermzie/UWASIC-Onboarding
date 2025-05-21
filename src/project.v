@@ -16,9 +16,11 @@ module tt_um_uwasic_onboarding_jeremy_zheng (
     input  wire       rst_n     // reset_n - low to reset
 );
 
+  wire [15:0] out;
+
   // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
-  assign uio_out = 0;
+  assign uo_out  = out[7:0];
+  assign uio_out = out[15:8];
   assign uio_oe  = 8'hFF;
 
   // Wires refer to the values of the registers
@@ -38,7 +40,7 @@ module tt_um_uwasic_onboarding_jeremy_zheng (
     .en_reg_pwm_7_0(en_reg_pwm_7_0),
     .en_reg_pwm_15_8(en_reg_pwm_15_8),
     .pwm_duty_cycle(pwm_duty_cycle),
-    .out({uio_out, uo_out})
+    .out(out)
   );
 
   // List all unused inputs to prevent warnings
