@@ -167,6 +167,8 @@ async def sample_pwm_signal(dut, signal, channel, cycles = 2):
         return (int(signal.value) >> channel) & 1
 
     rising_edges = 0
+    tot_high_time = 0
+    tot_period = 0
     timeout_ns = 1e6
     start_time = cocotb.utils.get_sim_time(units='ns')
 
