@@ -173,13 +173,13 @@ async def sample_pwm_signal(dut, signal, channel, cycles = 2):
     # Check for HIGH signal; wait until LOW
     while bit_val() == 1:
             await RisingEdge(dut.clk)
-            if cocotb.utils.get_sim_time(units="ns") - t_0 > timeout_ns:
+            if cocotb.utils.get_sim_time(units="ns") - start_time > timeout_ns:
                 return 0.0, 100.0   # signal never goes LOW
 
     # Check for LOW signal; start sampling on next edge
     while bit_val() == 0:
         await RisingEdge(dut.clk)
-        if cocotb.utils.get_sim_time(units="ns") - t_0 > timeout_ns:
+        if cocotb.utils.get_sim_time(units="ns") - start_time > timeout_ns:
             return 0.0, 0.0   # signal never goes HIGH
 
 
@@ -232,15 +232,15 @@ async def test_pwm_freq(dut):
 
     # Measure time delay between posedges to find period within 1% error
 
-    """
-    Output Structure: 16-bit output: {uio_out[7:0], uo_out[7:0]}
-    Each bit/channel can be independently enabled for static output or PWM
+    
+    # Output Structure: 16-bit output: {uio_out[7:0], uo_out[7:0]}
+    # Each bit/channel can be independently enabled for static output or PWM
 
-    Output Enable Bit | PWM Bit | Result Output
-            0         |    x    |       0
-            1         |    0    |       1
-            1         |    1    |      PWM
-    """
+    # Output Enable Bit | PWM Bit | Result Output
+    #         0         |    x    |       0
+    #         1         |    0    |       1
+    #         1         |    1    |      PWM
+    
 
     dut._log.info("Start PWM Frequency test")
 
